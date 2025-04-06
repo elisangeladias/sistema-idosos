@@ -1,5 +1,19 @@
 # 🧓 Sistema de Cadastro de Idosos
 
+### Antes de Tudo
+
+Antes de começar, certifique-se de instalar o Docker, o Python e todas as demais bibliotecas necessárias em seu computador. Você também precisará de um editor de código de sua preferência, como Visual Studio Code ou outros. Para aqueles que optarem por desenvolver uma interface para usuários e se for fazer uso de biblioteca de componentes (React, Next, Vue, etc) certifiquem-se de instalar o Node.js e as dependências necessárias para o desenvolvimento dessa interface.
+
+Link para instalação do Docker nos sistemas:
+
+● Windows: https://docs.docker.com/desktop/install/windows-install/
+
+● Ubuntu: https://docs.docker.com/engine/install/ubuntu/
+
+● Mac OS: https://docs.docker.com/desktop/install/mac-install/
+
+Observação: usuários de windows, é importante verificar se a virtualização de sua máquina está ativada na BIOS de sua máquina, pois ela é fundamental para habilitação do WSL2. Em seguida, você deve seguir os passos de instalação e habilitação do WSL2, para execução do Docker.
+
 ```mermaid
 graph TD
     A[Frontend React] -->|HTTP| B[Backend Flask]
