@@ -68,19 +68,25 @@ Docker (opcional)
 Frontend (React)
 
 git clone https://github.com/elisangeladias/frontend-idosos.git
+
 cd frontend-idosos
+
 npm install
 
 Configure o arquivo .env:
+
 REACT_APP_API_URL=http://localhost:5000
 
 Inicie a aplicação:
+
 npm start
 
 Backend (Flask)
 
 git clone https://github.com/elisangeladias/backend-idosos.git
+
 cd backend-idosos
+
 python -m venv venv
 
 
