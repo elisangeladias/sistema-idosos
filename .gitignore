@@ -1,3 +1,5 @@
+.vscode/
+
 # Frontend
 frontend/node_modules/
 frontend/.env
@@ -9,4 +11,4 @@ backend/.env
 
 # Geral
 .DS_Store
-.vscode
+
