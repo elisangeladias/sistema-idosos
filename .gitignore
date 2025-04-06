@@ -1,0 +1,12 @@
+# Frontend
+frontend/node_modules/
+frontend/.env
+
+# Backend
+backend/venv/
+backend/instance/
+backend/.env
+
+# Geral
+.DS_Store
+.vscode

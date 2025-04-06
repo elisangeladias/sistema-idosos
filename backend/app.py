@@ -68,20 +68,7 @@ def mostra_caminho():
         "existe": os.path.exists('instance/idosos.db')
     })
 
-@app.route('/idosos/<int:id>', methods=['DELETE'])
-def deletar_idoso(id):
-    try:
-        idoso = db.session.get(Idoso, id)
-        if not idoso:
-            return jsonify({"erro": "Idoso não encontrado"}), 404
 
-        db.session.delete(idoso)
-        db.session.commit()
-        return jsonify({"mensagem": "Idoso deletado com sucesso!"}), 200
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"erro": str(e)}), 500
 
 @app.route('/idosos', methods=['POST'])
 def cadastrar_idoso():
@@ -128,19 +115,23 @@ def cadastrar_idoso():
 @app.route('/cep/<cep>', methods=['GET'])
 def buscar_endereco(cep):
     try:
+        cep = ''.join(filter(str.isdigit, cep))
+        
+        if len(cep) != 8:
+            return jsonify({"erro": "CEP deve conter 8 dígitos"}), 400
+        
         response = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
         
         if response.status_code != 200 or 'erro' in response.json():
             return jsonify({"erro": "CEP não encontrado"}), 404
 
-        endereco = response.json()
+       # endereco = response.json()
         return jsonify({
-            "logradouro": endereco.get('logradouro', ''),
-            "numero": endereco.get('numero', ''),
-            "bairro": endereco.get('bairro', ''),
-            "cidade": endereco.get('localidade', ''),
-            "uf": endereco.get('uf', ''),
-            "cep": endereco.get('cep', '')
+            "logradouro": data.get('logradouro', ''),
+            "bairro": data.get('bairro', ''),
+            "cidade": data.get('localidade', ''),  # ViaCEP usa 'localidade'
+            "uf": data.get('uf', ''),
+            "cep": data.get('cep', '')
         })
 
     except Exception as e:
@@ -177,6 +168,43 @@ def deletar_idoso(id):
         db.session.delete(idoso)
         db.session.commit()
         return jsonify({"mensagem": "Idoso deletado com sucesso!"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"erro": str(e)}), 500
+    
+@app.route('/idosos/<int:id>', methods=['PUT'])
+def atualizar_idoso(id):
+    try:
+        idoso = db.session.get(Idoso, id)
+        if not idoso:
+            return jsonify({"erro": "Idoso não encontrado"}), 404
+
+        dados = request.json
+        
+        if 'nome' in dados:
+            idoso.nome = dados['nome']
+        if 'idade' in dados:
+            idoso.idade = dados['idade']
+        if 'nome_responsavel' in dados:
+            idoso.nome_responsavel = dados['nome_responsavel']
+        if 'celular_responsavel' in dados:
+            idoso.celular_responsavel = dados['celular_responsavel']
+        if 'cep' in dados:
+            idoso.cep = dados['cep']
+        if 'logradouro' in dados:
+            idoso.logradouro = dados['logradouro']
+        if 'numero' in dados:
+            idoso.numero = dados['numero']
+        if 'bairro' in dados:
+            idoso.bairro = dados['bairro']
+        if 'cidade' in dados:
+            idoso.cidade = dados['cidade']
+        if 'uf' in dados:
+            idoso.uf = dados['uf']
+
+        db.session.commit()
+        return jsonify({"mensagem": "Idoso atualizado com sucesso!"}), 200
 
     except Exception as e:
         db.session.rollback()
