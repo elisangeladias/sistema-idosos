@@ -177,7 +177,6 @@ PUT	   /idosos/{id} Atualiza cadastro
 
 DELETE	/idosos/{id} Remove cadastro
 
-GET	    /cep/{cep}	Consulta ViaCEP
 
 
 ### 🌍 API Externa
